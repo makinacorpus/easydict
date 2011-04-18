@@ -9,7 +9,7 @@ Access dict values as attributes (works recursively)
 USAGE
 =====
 
-.. code-block :: python
+::
 
     >>> from easydict import EasyDict
     >>> d = EasyDict({'foo':3, 'bar':{'x':1, 'y':2}})
@@ -18,9 +18,7 @@ USAGE
     >>> d.bar.x
     1
 
-Very useful when exploiting parsed JSON content ! 
-
-.. code-block :: python
+Very useful when exploiting parsed JSON content ! ::
 
     >>> from easydict import EasyDict
     >>> from simplejson import loads
