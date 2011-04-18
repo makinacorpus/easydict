@@ -3,7 +3,7 @@ EasyDict
 
 Access dict values as attributes (works recursively)
 
-<https://github.com/leplatrem/easydict>
+<https://github.com/makinacorpus/easydict>
 
 =====
 USAGE
