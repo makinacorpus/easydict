@@ -48,6 +48,10 @@ LICENSE
 CHANGELOG
 =========
 
+1.1
+---
+* Fix #1: README.rst was missing for setup install
+
 1.0
 ---
 * Initial version. Does what I need.
