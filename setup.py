@@ -4,7 +4,7 @@ from distutils.core import setup
 here = os.path.abspath(os.path.dirname(__file__))
 
 setup(
-    name='easysdict',
+    name='easydict',
     version='1.1',
     author='Mathieu Leplatre',
     author_email='mathieu.leplatre@makina-corpus.com',
