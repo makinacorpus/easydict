@@ -48,6 +48,10 @@ LICENSE
 CHANGELOG
 =========
 
+1.2
+---
+* Renamed README.rst to README.txt
+
 1.1
 ---
 * Fix #1: README.rst was missing for setup install
