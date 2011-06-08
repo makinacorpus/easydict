@@ -17,6 +17,6 @@ setup(
                     'Development Status :: 5 - Production/Stable',
                     'Programming Language :: Python :: 2.5'],
     description="Access dict values as attributes (works recursively)",
-    long_description=open(os.path.join(here, 'README.rst')).read(),
+    long_description=open(os.path.join(here, 'README.txt')).read(),
 )
 
