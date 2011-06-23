@@ -11,8 +11,8 @@ USAGE
 
 ::
 
-    >>> from easydict import EasyDict
-    >>> d = EasyDict({'foo':3, 'bar':{'x':1, 'y':2}})
+    >>> from easydict import EasyDict as ed
+    >>> d = ed({'foo':3, 'bar':{'x':1, 'y':2}})
     >>> d.foo
     3
     >>> d.bar.x
