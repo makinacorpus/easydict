@@ -3,22 +3,27 @@ EasyDict
 
 Access dict values as attributes (works recursively)
 
-<https://github.com/makinacorpus/easydict>
-
 =====
 USAGE
 =====
 
 ::
 
-    >>> from easydict import EasyDict as ed
-    >>> d = ed({'foo':3, 'bar':{'x':1, 'y':2}})
+    >>> from easydict import EasyDict as edict
+    >>> d = edict({'foo':3, 'bar':{'x':1, 'y':2}})
     >>> d.foo
     3
     >>> d.bar.x
     1
+    
+    >>> d = edict(foo=3)
+    >>> d.foo
+    3
 
-Very useful when exploiting parsed JSON content ! ::
+
+Very useful when exploiting parsed JSON content ! 
+
+::
 
     >>> from easydict import EasyDict
     >>> from simplejson import loads
@@ -43,22 +48,6 @@ LICENSE
 =======
 
 * Lesser GNU Public License
-
-=========
-CHANGELOG
-=========
-
-1.2
----
-* Renamed README.rst to README.txt
-
-1.1
----
-* Fix #1: README.rst was missing for setup install
-
-1.0
----
-* Initial version. Does what I need.
 
 =======
 AUTHORS
