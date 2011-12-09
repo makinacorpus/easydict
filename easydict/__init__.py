@@ -22,8 +22,17 @@ class EasyDict(dict):
     [1, 3]
     >>> map(attrgetter('y'), d.bar)
     [2, 4]
+    >>> d = EasyDict()
+    >>> d.keys()
+    []
+    >>> d = EasyDict(foo=3, bar=dict(x=1, y=2))
+    >>> d.foo
+    3
+    >>> d.bar.x
+    1
     """
-    def __init__(self, d):
+    def __init__(self, d={}, **kwargs):
+        d.update(**kwargs)
         for k, v in d.items():
             setattr(self, k, v)
 
