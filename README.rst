@@ -1,7 +1,8 @@
 EasyDict
 ########
 
-Access dict values as attributes (works recursively)
+Access dict values as attributes (works recursively). A Javascript-like 
+properties dot notation for python dicts.
 
 =====
 USAGE
@@ -25,7 +26,7 @@ Very useful when exploiting parsed JSON content !
 
 ::
 
-    >>> from easydict import EasyDict
+    >>> from easydict import EasyDict as edict
     >>> from simplejson import loads
     >>> j = """{
     "Buffer": 12,
@@ -36,12 +37,18 @@ Very useful when exploiting parsed JSON content !
         {"type" : "point", "coordinates" : [150.9,97.8] }
     ]
     }"""
-    >>> d = EasyDict(loads(j))
+    >>> d = edict(loads(j))
     >>> d.Buffer
     12
     >>> d.List1[0].coordinates[1]
     54.9
 
+Can set attributes as easily as getting them ::
+
+    >>> d = EasyDict()
+    >>> d.foo = 3
+    >>> d.foo
+    3
 
 =======
 LICENSE

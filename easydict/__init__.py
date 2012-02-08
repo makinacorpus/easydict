@@ -1,5 +1,7 @@
 class EasyDict(dict):
     """
+    Get attributes
+
     >>> d = EasyDict({'foo':3})
     >>> d['foo']
     3
@@ -9,11 +11,35 @@ class EasyDict(dict):
     Traceback (most recent call last):
     ...
     AttributeError: 'EasyDict' object has no attribute 'bar'
+
+
+    Works recursively
+    
     >>> d = EasyDict({'foo':3, 'bar':{'x':1, 'y':2}})
     >>> isinstance(d.bar, dict)
     True
     >>> d.bar.x
     1
+
+
+    Set attributes
+    
+    >>> d = EasyDict()
+    >>> d.foo = 3
+    >>> d.foo
+    3
+    >>> d.bar = {'prop': 'value'}
+    >>> d.bar.prop
+    'value'
+    >>> d
+    {'foo': 3, 'bar': {'prop': 'value'}}
+    >>> d.bar.prop = 'newer'
+    >>> d.bar.prop
+    'newer'
+
+
+    Values extraction 
+    
     >>> d = EasyDict({'foo':0, 'bar':[{'x':1, 'y':2}, {'x':3, 'y':4}]})
     >>> isinstance(d.bar, list)
     True
