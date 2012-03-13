@@ -50,6 +50,17 @@ Can set attributes as easily as getting them ::
     >>> d.foo
     3
 
+Instance and class attributes are accessed like usual ::
+
+    >>> class Flower(EasyDict):
+    ...     power = 1
+    ...
+    >>> f = Flower({'height': 12})
+    >>> f.power
+    1
+    >>> f['power']
+    1
+
 =======
 LICENSE
 =======
@@ -61,3 +72,8 @@ AUTHORS
 =======
 
 * Mathieu Leplatre <mathieu.leplatre@makina-corpus.com>
+
+|makinacom|_
+
+.. |makinacom| image:: http://depot.makina-corpus.org/public/logo.gif
+.. _makinacom:  http://www.makina-corpus.com
