@@ -12,7 +12,6 @@ class EasyDict(dict):
     ...
     AttributeError: 'EasyDict' object has no attribute 'bar'
 
-
     Works recursively
     
     >>> d = EasyDict({'foo':3, 'bar':{'x':1, 'y':2}})
@@ -56,11 +55,38 @@ class EasyDict(dict):
     3
     >>> d.bar.x
     1
+    
+    Still like a dict though
+    
+    >>> o = EasyDict({'clean':True})
+    >>> o.items()
+    [('clean', True)]
+    
+    And like a class
+    
+    >>> class Flower(EasyDict):
+    ...     power = 1
+    ...
+    >>> f = Flower({'height': 12})
+    >>> f.height
+    12
+    >>> f.power
+    1
+    >>> f['power']
+    1
+    >>> sorted(f.keys())
+    ['height', 'power']
     """
-    def __init__(self, d={}, **kwargs):
+    def __init__(self, d=None, **kwargs):
+        if d is None:
+            d = {}
         d.update(**kwargs)
         for k, v in d.items():
             setattr(self, k, v)
+        # Class attributes
+        for k in self.__class__.__dict__.keys():
+            if not (k.startswith('__') and k.endswith('__')):
+                setattr(self, k, getattr(self, k))
 
     def __setattr__(self, name, value):
         if isinstance(value, (list, tuple)):
