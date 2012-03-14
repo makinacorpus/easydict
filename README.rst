@@ -43,14 +43,27 @@ Very useful when exploiting parsed JSON content !
     >>> d.List1[0].coordinates[1]
     54.9
 
-Can set attributes as easily as getting them ::
+Can set attributes as easily as getting them :
+
+::
 
     >>> d = EasyDict()
     >>> d.foo = 3
     >>> d.foo
     3
 
-Instance and class attributes are accessed like usual ::
+It is still a ``dict`` !
+
+::
+
+    >>> d = EasyDict(log=False)
+    >>> d.debug = True
+    >>> d.items()
+    [('debug', True), ('log', False)]
+
+Instance and class attributes are accessed like usual objects...
+
+::
 
     >>> class Flower(EasyDict):
     ...     power = 1
@@ -77,3 +90,8 @@ AUTHORS
 
 .. |makinacom| image:: http://depot.makina-corpus.org/public/logo.gif
 .. _makinacom:  http://www.makina-corpus.com
+
+Similar tools
+=============
+
+* `TreeDict <http://pypi.python.org/pypi/treedict>`_, a fast and full-featured dict-like tree container.

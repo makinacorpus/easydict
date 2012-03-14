@@ -67,11 +67,12 @@ class EasyDict(dict):
     >>> class Flower(EasyDict):
     ...     power = 1
     ...
+    >>> f = Flower()
+    >>> f.power
+    1
     >>> f = Flower({'height': 12})
     >>> f.height
     12
-    >>> f.power
-    1
     >>> f['power']
     1
     >>> sorted(f.keys())
