@@ -20,6 +20,14 @@ class EasyDict(dict):
     >>> d.bar.x
     1
 
+    Bullet-proof
+    
+    >>> EasyDict({})
+    {}
+    >>> EasyDict(d={})
+    {}
+    >>> EasyDict(None)
+    {}
 
     Set attributes
     
