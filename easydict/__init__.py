@@ -13,7 +13,7 @@ class EasyDict(dict):
     AttributeError: 'EasyDict' object has no attribute 'bar'
 
     Works recursively
-    
+
     >>> d = EasyDict({'foo':3, 'bar':{'x':1, 'y':2}})
     >>> isinstance(d.bar, dict)
     True
@@ -21,7 +21,7 @@ class EasyDict(dict):
     1
 
     Bullet-proof
-    
+
     >>> EasyDict({})
     {}
     >>> EasyDict(d={})
@@ -30,7 +30,7 @@ class EasyDict(dict):
     {}
 
     Set attributes
-    
+
     >>> d = EasyDict()
     >>> d.foo = 3
     >>> d.foo
@@ -45,8 +45,8 @@ class EasyDict(dict):
     'newer'
 
 
-    Values extraction 
-    
+    Values extraction
+
     >>> d = EasyDict({'foo':0, 'bar':[{'x':1, 'y':2}, {'x':3, 'y':4}]})
     >>> isinstance(d.bar, list)
     True
@@ -63,15 +63,15 @@ class EasyDict(dict):
     3
     >>> d.bar.x
     1
-    
+
     Still like a dict though
-    
+
     >>> o = EasyDict({'clean':True})
     >>> o.items()
     [('clean', True)]
-    
+
     And like a class
-    
+
     >>> class Flower(EasyDict):
     ...     power = 1
     ...
