@@ -1,8 +1,5 @@
-EasyDict
-########
-
-Access dict values as attributes (works recursively). A Javascript-like 
-properties dot notation for python dicts.
+*EasyDict* allows to access dict values as attributes (works recursively). 
+A Javascript-like properties dot notation for python dicts.
 
 =====
 USAGE

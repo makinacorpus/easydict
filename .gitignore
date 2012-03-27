@@ -1,0 +1,4 @@
+*.pyc
+/build/
+/dist/
+easydict.egg-info/

@@ -1,0 +1,28 @@
+=========
+CHANGELOG
+=========
+
+1.4 (2011-03-13)
+================
+
+* Access class attributes like instance attributes
+
+1.3 (2012-02-08)
+================
+
+* Better documentation and tests
+
+1.2 (2011-06-08)
+================
+
+* Fix inclusion of README
+
+1.1 (2012-04-21)
+================
+
+* Switch to distutils2
+
+1.0 (2011-04-18)
+================
+
+* Initial working version
