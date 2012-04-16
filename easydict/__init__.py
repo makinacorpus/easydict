@@ -10,7 +10,8 @@ class EasyDict(dict):
     >>> d.bar
     Traceback (most recent call last):
     ...
-    AttributeError: 'EasyDict' object has no attribute 'bar'
+    KeyError: 'bar'
+
 
     Works recursively
 
@@ -19,15 +20,6 @@ class EasyDict(dict):
     True
     >>> d.bar.x
     1
-
-    Bullet-proof
-
-    >>> EasyDict({})
-    {}
-    >>> EasyDict(d={})
-    {}
-    >>> EasyDict(None)
-    {}
 
     Set attributes
 
@@ -41,6 +33,8 @@ class EasyDict(dict):
     >>> d
     {'foo': 3, 'bar': {'prop': 'value'}}
     >>> d.bar.prop = 'newer'
+    >>> d
+    {'foo': 3, 'bar': {'prop': 'newer'}}
     >>> d.bar.prop
     'newer'
 
@@ -86,24 +80,23 @@ class EasyDict(dict):
     >>> sorted(f.keys())
     ['height', 'power']
     """
-    def __init__(self, d=None, **kwargs):
-        if d is None:
-            d = {}
-        d.update(**kwargs)
-        for k, v in d.items():
-            setattr(self, k, v)
+    def __init__(self, *args, **kwargs):
+        super(EasyDict, self).__init__(*args, **kwargs)
         # Class attributes
         for k in self.__class__.__dict__.keys():
             if not (k.startswith('__') and k.endswith('__')):
                 setattr(self, k, getattr(self, k))
 
     def __setattr__(self, name, value):
+        self[name] = value
+
+    def __getattr__(self, name):
+        value = self[name]
         if isinstance(value, (list, tuple)):
             value = [EasyDict(x) if isinstance(x, dict) else x for x in value]
         else:
             value = EasyDict(value) if isinstance(value, dict) else value
-        super(EasyDict, self).__setattr__(name, value)
-        self[name] = value
+        return value
 
 
 if __name__ == "__main__":
