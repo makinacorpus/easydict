@@ -28,6 +28,9 @@ class EasyDict(dict):
     {}
     >>> EasyDict(None)
     {}
+    >>> d = {'a': 1}
+    >>> EasyDict(**d)
+    {'a': 1}
 
     Set attributes
 
@@ -89,7 +92,8 @@ class EasyDict(dict):
     def __init__(self, d=None, **kwargs):
         if d is None:
             d = {}
-        d.update(**kwargs)
+        if kwargs:
+            d.update(**kwargs)
         for k, v in d.items():
             setattr(self, k, v)
         # Class attributes
