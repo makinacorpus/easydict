@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-1.5 (unreleased)
+1.5 (2014-08-07)
 ================
 
 * Allow subclassing using self instead of class name (thanks Steve Engledow)
