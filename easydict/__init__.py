@@ -103,9 +103,9 @@ class EasyDict(dict):
 
     def __setattr__(self, name, value):
         if isinstance(value, (list, tuple)):
-            value = [EasyDict(x) if isinstance(x, dict) else x for x in value]
+            value = [self.__class__(x) if isinstance(x, dict) else x for x in value]
         else:
-            value = EasyDict(value) if isinstance(value, dict) else value
+            value = self.__class__(value) if isinstance(value, dict) else value
         super(EasyDict, self).__setattr__(name, value)
         self[name] = value
 
