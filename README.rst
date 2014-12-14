@@ -92,3 +92,4 @@ Similar tools
 =============
 
 * `TreeDict <http://pypi.python.org/pypi/treedict>`_, a fast and full-featured dict-like tree container.
+* `addict <https://github.com/mewwts/addict>`_
