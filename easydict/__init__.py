@@ -107,7 +107,8 @@ class EasyDict(dict):
         else:
             value = self.__class__(value) if isinstance(value, dict) else value
         super(EasyDict, self).__setattr__(name, value)
-        self[name] = value
+        super(EasyDict, self).__setitem__(name, value)
+    __setitem__ = __setattr__
 
 
 if __name__ == "__main__":
