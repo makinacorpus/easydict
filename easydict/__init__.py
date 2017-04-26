@@ -105,8 +105,8 @@ class EasyDict(dict):
         if isinstance(value, (list, tuple)):
             value = [self.__class__(x)
                      if isinstance(x, dict) else x for x in value]
-        else:
-            value = self.__class__(value) if isinstance(value, dict) else value
+        elif isinstance(value, dict) and not isinstance(value, self.__class__):
+            value = self.__class__(value)
         super(EasyDict, self).__setattr__(name, value)
         super(EasyDict, self).__setitem__(name, value)
 
