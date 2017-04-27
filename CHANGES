@@ -5,13 +5,12 @@ CHANGELOG
 1.7 (unreleased)
 ================
 
-- Nothing changed yet.
-
+* Prevent copying sub-EasyDicts on assignment to fix unpickling (#7, thanks @Chronos-Sk)
 
 1.6 (2015-01-27)
 ================
 
-* Allow setting attributes via setting items (thans phivos)
+* Allow setting attributes via setting items (thanks phivos)
 
 1.5 (2014-08-07)
 ================
