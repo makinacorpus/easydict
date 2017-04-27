@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-1.7 (unreleased)
+1.7 (2017-04-27)
 ================
 
 * Prevent copying sub-EasyDicts on assignment to fix unpickling (#7, thanks @Chronos-Sk)
