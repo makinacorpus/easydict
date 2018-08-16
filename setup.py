@@ -26,5 +26,6 @@ setup(
                  'Operating System :: OS Independent',
                  'Intended Audience :: Developers',
                  'Development Status :: 5 - Production/Stable',
-                 'Programming Language :: Python :: 2.5'],
+                 'Programming Language :: Python :: 2.5',
+                 'Programming Language :: Python :: 3.6'],
 )
