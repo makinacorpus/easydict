@@ -132,10 +132,9 @@ class EasyDict(dict):
 
     __setitem__ = __setattr__
 
-    def update(self, E=None, **F):
-        # Fix update error of easydict
-        d = E or dict()
-        d.update(F)
+    def update(self, e=None, **f):
+        d = e or dict()
+        d.update(f)
         for k in d:
             setattr(self, k, d[k])
 
