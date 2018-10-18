@@ -88,6 +88,26 @@ class EasyDict(dict):
     1
     >>> sorted(f.keys())
     ['height', 'power']
+
+    update and pop items
+    >>> d = EasyDict(a=1, b='2')
+    >>> e = EasyDict(c=3.0, a=9.0)
+    >>> d.update(e)
+    >>> d.c
+    3.0
+    >>> d['c']
+    3.0
+    >>> d.get('c')
+    3.0
+    >>> d.update(a=4, b=4)
+    >>> d.b
+    4
+    >>> d.pop('a')
+    4
+    >>> d.a
+    Traceback (most recent call last):
+    ...
+    AttributeError: 'EasyDict' object has no attribute 'a'
     """
     def __init__(self, d=None, **kwargs):
         if d is None:
@@ -98,7 +118,7 @@ class EasyDict(dict):
             setattr(self, k, v)
         # Class attributes
         for k in self.__class__.__dict__.keys():
-            if not (k.startswith('__') and k.endswith('__')):
+            if not (k.startswith('__') and k.endswith('__')) and not k in ('update', 'pop'):
                 setattr(self, k, getattr(self, k))
 
     def __setattr__(self, name, value):
@@ -111,6 +131,16 @@ class EasyDict(dict):
         super(EasyDict, self).__setitem__(name, value)
 
     __setitem__ = __setattr__
+
+    def update(self, e=None, **f):
+        d = e or dict()
+        d.update(f)
+        for k in d:
+            setattr(self, k, d[k])
+
+    def pop(self, k, d=None):
+        delattr(self, k)
+        return super(EasyDict, self).pop(k, d)
 
 
 if __name__ == "__main__":
