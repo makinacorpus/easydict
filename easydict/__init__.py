@@ -1,3 +1,5 @@
+_NO_DEFAULT = object()
+
 class EasyDict(dict):
     """
     Get attributes
@@ -138,9 +140,15 @@ class EasyDict(dict):
         for k in d:
             setattr(self, k, d[k])
 
-    def pop(self, k, d=None):
-        delattr(self, k)
-        return super(EasyDict, self).pop(k, d)
+    def pop(self, k, d=_NO_DEFAULT):
+        if d is _NO_DEFAULT:
+            result = super(EasyDict, self).pop(k)
+        else:
+            result = super(EasyDict, self).pop(k, d)
+
+        if hasattr(self, k):
+            delattr(self, k)
+        return result
 
 
 if __name__ == "__main__":
