@@ -7,12 +7,13 @@ class EasyDict(dict):
     3
     >>> d.foo
     3
-    >>> d.bar
-    Traceback (most recent call last):
-    ...
-    AttributeError: 'EasyDict' object has no attribute 'bar'
 
-    Works recursively
+    Set default value for arbitrary keys that don't exist
+    >>> d = EasyDict({'foo':3}, default_value=0)
+    >>> d['foo']
+    3
+    >>> d.bar
+    0
 
     >>> d = EasyDict({'foo':3, 'bar':{'x':1, 'y':2}})
     >>> isinstance(d.bar, dict)
@@ -105,9 +106,7 @@ class EasyDict(dict):
     >>> d.pop('a')
     4
     >>> d.a
-    Traceback (most recent call last):
-    ...
-    AttributeError: 'EasyDict' object has no attribute 'a'
+    None
     """
     def __init__(self, d=None, default_value=None, **kwargs):
         self.__default_value = default_value
