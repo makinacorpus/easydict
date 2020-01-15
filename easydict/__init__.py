@@ -109,7 +109,8 @@ class EasyDict(dict):
     ...
     AttributeError: 'EasyDict' object has no attribute 'a'
     """
-    def __init__(self, d=None, **kwargs):
+    def __init__(self, d=None, default_value=None, **kwargs):
+        self.__default_value = default_value
         if d is None:
             d = {}
         if kwargs:
@@ -131,6 +132,9 @@ class EasyDict(dict):
         super(EasyDict, self).__setitem__(name, value)
 
     __setitem__ = __setattr__
+	
+    def __getattr__(self, item):
+        return self.__default_value
 
     def update(self, e=None, **f):
         d = e or dict()
