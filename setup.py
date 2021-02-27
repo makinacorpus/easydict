@@ -15,7 +15,7 @@ setup(
     description="Access dict values as attributes (works recursively).",
     long_description=open(os.path.join(here, 'README.rst')).read() + '\n\n' +
                      open(os.path.join(here, 'CHANGES')).read(),
-    license='LPGL, see LICENSE file.',
+    license='LGPL-3.0',
     install_requires=[],
     packages=find_packages(),
     include_package_data=True,
