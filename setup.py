@@ -15,7 +15,7 @@ setup(
     description="Access dict values as attributes (works recursively).",
     long_description=open(os.path.join(here, 'README.rst')).read() + '\n\n' +
                      open(os.path.join(here, 'CHANGES')).read(),
-    license='LPGL, see LICENSE file.',
+    license='LGPL-3.0',
     install_requires=[],
     packages=find_packages(),
     include_package_data=True,
@@ -26,6 +26,7 @@ setup(
                  'Operating System :: OS Independent',
                  'Intended Audience :: Developers',
                  'Development Status :: 5 - Production/Stable',
+                 'License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)',
                  'Programming Language :: Python :: 2.5',
                  'Programming Language :: Python :: 3.6'],
 )
