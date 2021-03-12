@@ -79,7 +79,7 @@ class EasyDict(dict):
 
     Simple inheritance with dict attribute
 
-    >>> class SimpleDict(EasyDict):
+    >>> class SimpleEasyDict(EasyDict):
     ...     def __init__(self):
     ...         self.value = {'one': 'two'}
     ...
