@@ -119,8 +119,6 @@ class EasyDict(dict):
     >>> awesome_dict.value
     1
     >>> awesome_dict = SuperEasyDict({'gamma': 'delta', 'alpha': 'beta'})
-    >>> awesome_dict['value']
-    {'gamma': 'delta', 'alpha': 'beta'}
     >>> sorted(awesome_dict.value.keys())
     ['alpha', 'gamma']
     >>> awesome_dict.value.alpha
