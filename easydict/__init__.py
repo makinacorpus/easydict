@@ -20,6 +20,7 @@ class EasyDict(dict):
     >>> d.bar.x
     1
 
+
     Bullet-proof
 
     >>> EasyDict({})
@@ -31,6 +32,7 @@ class EasyDict(dict):
     >>> d = {'a': 1}
     >>> EasyDict(**d)
     {'a': 1}
+
 
     Set attributes
 
@@ -54,12 +56,12 @@ class EasyDict(dict):
     >>> isinstance(d.bar, list)
     True
     >>> from operator import attrgetter
-    >>> map(attrgetter('x'), d.bar)
+    >>> list(map(attrgetter('x'), d.bar))
     [1, 3]
-    >>> map(attrgetter('y'), d.bar)
+    >>> list(map(attrgetter('y'), d.bar))
     [2, 4]
     >>> d = EasyDict()
-    >>> d.keys()
+    >>> list(d.keys())
     []
     >>> d = EasyDict(foo=3, bar=dict(x=1, y=2))
     >>> d.foo
@@ -67,29 +69,70 @@ class EasyDict(dict):
     >>> d.bar.x
     1
 
-    Still like a dict though
+
+    Still acts like a dict type
 
     >>> o = EasyDict({'clean':True})
-    >>> o.items()
+    >>> list(o.items())
     [('clean', True)]
 
-    And like a class
+
+    Simple inheritance with dict attribute
+
+    >>> class SimpleEasyDict(EasyDict):
+    ...     def __init__(self):
+    ...         self.value = {'one': 'two'}
+    ...
+    >>> simple_dict = SimpleEasyDict()
+    >>> simple_dict['value'].one
+    'two'
+
+
+    Static class attributes
 
     >>> class Flower(EasyDict):
     ...     power = 1
+    ...     children = {'two': 2}
     ...
     >>> f = Flower()
     >>> f.power
     1
+    >>> f.children.two
+    2
     >>> f = Flower({'height': 12})
     >>> f.height
     12
     >>> f['power']
     1
     >>> sorted(f.keys())
-    ['height', 'power']
+    ['children', 'height', 'power']
 
-    update and pop items
+
+    Instance class attributes
+
+    >>> class SuperEasyDict(EasyDict):
+    ...     def __init__(self, value=None):
+    ...         self.value = value
+    ...
+    >>> awesome_dict = SuperEasyDict()
+    >>> awesome_dict = SuperEasyDict(1)
+    >>> awesome_dict.value
+    1
+    >>> awesome_dict = SuperEasyDict({'gamma': 'delta', 'alpha': 'beta'})
+    >>> awesome_dict['value']
+    {'gamma': 'delta', 'alpha': 'beta'}
+    >>> sorted(awesome_dict.value.keys())
+    ['alpha', 'gamma']
+    >>> awesome_dict.value.alpha
+    'beta'
+    >>> awesome_dict.epsilon = 'zeta'
+    >>> awesome_dict['eta'] = 'theta'
+    >>> sorted(awesome_dict.keys())
+    ['epsilon', 'eta', 'value']
+
+
+    Update and pop items
+
     >>> d = EasyDict(a=1, b='2')
     >>> e = EasyDict(c=3.0, a=9.0)
     >>> d.update(e)
