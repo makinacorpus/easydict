@@ -20,6 +20,7 @@ class EasyDict(dict):
     >>> d.bar.x
     1
 
+
     Bullet-proof
 
     >>> EasyDict({})
@@ -31,6 +32,7 @@ class EasyDict(dict):
     >>> d = {'a': 1}
     >>> EasyDict(**d)
     {'a': 1}
+
 
     Set attributes
 
@@ -67,20 +69,36 @@ class EasyDict(dict):
     >>> d.bar.x
     1
 
-    Still like a dict though
+
+    Still acts like a dict type
 
     >>> o = EasyDict({'clean':True})
     >>> o.items()
     [('clean', True)]
 
-    And like a class
+
+    Simple inheritance with dict attribute
+
+    >>> class SimpleDict(EasyDict):
+            def __init__(self):
+                self.value = {'one': 'two'}
+    ...
+    >>> simple_dict = SimpleEasyDict()
+    >>> simple_dict['value'].one
+    'two'
+
+
+    Static class attributes
 
     >>> class Flower(EasyDict):
     ...     power = 1
+    ...     children = {'two': 2}
     ...
     >>> f = Flower()
     >>> f.power
     1
+    >>> f.children.one
+    2
     >>> f = Flower({'height': 12})
     >>> f.height
     12
@@ -89,7 +107,32 @@ class EasyDict(dict):
     >>> sorted(f.keys())
     ['height', 'power']
 
-    update and pop items
+
+    Instance class attributes
+
+    >>> class SuperEasyDict(EasyDict):
+    ...     __init__(self, value = None):
+    ...         self.value = value
+    ...
+    >>> awesome_dict = SuperEasyDict()
+    >>> awesome_dict = SuperEasyDict(1)
+    >>> awesome_dict.value
+    1
+    >>> awesome_dict = SuperEasyDict({'gamma': 'delta', 'alpha': 'beta'})
+    >>> awesome_dict['value']
+    {'gamma': 'delta', 'alpha': 'beta'}
+    >>> sorted(awesome_dict.value.keys())
+    ['alpha', 'gamma']
+    >>> awesome_dict.value.alpha
+    'beta'
+    >>> awesome_dict.epsilon = 'zeta'
+    >>> awesome_dict['eta'] = 'theta'
+    >>> sorted(awesome_dict.keys())
+    ['epsilon', 'eta', 'value']
+
+
+    Update and pop items
+
     >>> d = EasyDict(a=1, b='2')
     >>> e = EasyDict(c=3.0, a=9.0)
     >>> d.update(e)
