@@ -1,4 +1,4 @@
-*EasyDict* allows to access dict values as attributes (works recursively). 
+*MonkeyDict* allows to access dict values as attributes (works recursively). 
 A Javascript-like properties dot notation for python dicts.
 
 =====
@@ -7,7 +7,7 @@ USAGE
 
 ::
 
-    >>> from easydict import EasyDict as edict
+    >>> from monkeydict import MonkeyDict as edict
     >>> d = edict({'foo':3, 'bar':{'x':1, 'y':2}})
     >>> d.foo
     3
@@ -23,7 +23,7 @@ Very useful when exploiting parsed JSON content !
 
 ::
 
-    >>> from easydict import EasyDict as edict
+    >>> from monkeydict import MonkeyDict as edict
     >>> from simplejson import loads
     >>> j = """{
     "Buffer": 12,
@@ -44,7 +44,7 @@ Can set attributes as easily as getting them :
 
 ::
 
-    >>> d = EasyDict()
+    >>> d = MonkeyDict()
     >>> d.foo = 3
     >>> d.foo
     3
@@ -53,7 +53,7 @@ It is still a ``dict`` !
 
 ::
 
-    >>> d = EasyDict(log=False)
+    >>> d = MonkeyDict(log=False)
     >>> d.debug = True
     >>> d.items()
     [('debug', True), ('log', False)]
@@ -62,7 +62,7 @@ Instance and class attributes are accessed like usual objects...
 
 ::
 
-    >>> class Flower(EasyDict):
+    >>> class Flower(MonkeyDict):
     ...     power = 1
     ...
     >>> f = Flower({'height': 12})

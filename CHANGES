@@ -2,6 +2,21 @@
 CHANGELOG
 =========
 
+
+1.0 (2021-05-21)
+================
+- All references updated in all files. Testing completed.
+
+
+0.1 (2021-05-21)
+================
+- First version pushed to pypi (package renaming only)
+
+
+==================================
+EasyDict Versions (Parent Project)
+==================================
+
 1.10 (unreleased)
 =================
 

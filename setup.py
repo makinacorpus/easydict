@@ -7,7 +7,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 setup(
     name='monkeydict',
-    version='0.01',
+    version='1.0',
     author='Mathieu Leplatre, Jeremiah Blanchard',
     url='https://github.com/cacticouncil/monkeydict',
     download_url="http://pypi.python.org/pypi/monkeydict/",
@@ -23,7 +23,7 @@ setup(
                  'Natural Language :: English',
                  'Operating System :: OS Independent',
                  'Intended Audience :: Developers',
-#                 'Development Status :: 5 - Production/Stable',
+                 'Development Status :: 5 - Production/Stable',
                  'License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)',
                  'Programming Language :: Python :: 3.6'],
 )
