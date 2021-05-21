@@ -50,6 +50,17 @@ class EasyDict(dict):
     'newer'
 
 
+    Set list / tuple as attribute
+
+    >>> d = EasyDict()
+    >>> d.foo = [1, 2, 3]
+    >>> d.foo
+    [1, 2, 3]
+    >>> d.bar = ('a', 'b', 'c')
+    >>> d.bar
+    ('a', 'b', 'c')
+
+
     Values extraction
 
     >>> d = EasyDict({'foo':0, 'bar':[{'x':1, 'y':2}, {'x':3, 'y':4}]})
@@ -163,9 +174,12 @@ class EasyDict(dict):
                 setattr(self, k, getattr(self, k))
 
     def __setattr__(self, name, value):
-        if isinstance(value, (list, tuple)):
+        if isinstance(value, list):
             value = [EasyDict(x)
                      if isinstance(x, dict) else x for x in value]
+        if isinstance(value, tuple):
+            value = tuple([EasyDict(x)
+                     if isinstance(x, dict) else x for x in value])
         elif isinstance(value, dict) and not isinstance(value, EasyDict):
             value = EasyDict(value)
         super(EasyDict, self).__setattr__(name, value)
