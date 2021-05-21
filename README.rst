@@ -7,14 +7,14 @@ USAGE
 
 ::
 
-    >>> from monkeydict import MonkeyDict as edict
-    >>> d = edict({'foo':3, 'bar':{'x':1, 'y':2}})
+    >>> from monkeydict import MonkeyDict as mdict
+    >>> d = mdict({'foo':3, 'bar':{'x':1, 'y':2}})
     >>> d.foo
     3
     >>> d.bar.x
     1
     
-    >>> d = edict(foo=3)
+    >>> d = mdict(foo=3)
     >>> d.foo
     3
 
@@ -23,7 +23,7 @@ Very useful when exploiting parsed JSON content !
 
 ::
 
-    >>> from monkeydict import MonkeyDict as edict
+    >>> from monkeydict import MonkeyDict as mdict
     >>> from simplejson import loads
     >>> j = """{
     "Buffer": 12,
@@ -34,7 +34,7 @@ Very useful when exploiting parsed JSON content !
         {"type" : "point", "coordinates" : [150.9,97.8] }
     ]
     }"""
-    >>> d = edict(loads(j))
+    >>> d = mdict(loads(j))
     >>> d.Buffer
     12
     >>> d.List1[0].coordinates[1]
@@ -82,14 +82,11 @@ AUTHORS
 =======
 
 * Mathieu Leplatre <mathieu.leplatre@makina-corpus.com>
-
-|makinacom|_
-
-.. |makinacom| image:: http://depot.makina-corpus.org/public/logo.gif
-.. _makinacom:  http://www.makina-corpus.com
+* Jeremiah Blanchard <jjb@eng.ufl.edu>
 
 Similar tools
 =============
 
 * `TreeDict <http://pypi.python.org/pypi/treedict>`_, a fast and full-featured dict-like tree container.
 * `addict <https://github.com/mewwts/addict>`_
+* 'EasyDict <http://pypi.python.org/pypi/easydict>'_
