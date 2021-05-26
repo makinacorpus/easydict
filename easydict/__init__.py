@@ -115,7 +115,7 @@ class EasyDict(dict):
         if kwargs:
             d.update(**kwargs)
         for k, v in d.items():
-            setattr(self, str(k), v) #numeric attribute bug fixed
+            setattr(self, str(k), v)
         # Class attributes
         for k in self.__class__.__dict__.keys():
             if not (k.startswith('__') and k.endswith('__')) and not k in ('update', 'pop'):
