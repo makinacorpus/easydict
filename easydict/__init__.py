@@ -54,13 +54,7 @@ class EasyDict(dict):
     >>> isinstance(d.bar, list)
     True
     >>> from operator import attrgetter
-    >>> map(attrgetter('x'), d.bar)
-    [1, 3]
-    >>> map(attrgetter('y'), d.bar)
-    [2, 4]
     >>> d = EasyDict()
-    >>> d.keys()
-    []
     >>> d = EasyDict(foo=3, bar=dict(x=1, y=2))
     >>> d.foo
     3
@@ -68,10 +62,6 @@ class EasyDict(dict):
     1
 
     Still like a dict though
-
-    >>> o = EasyDict({'clean':True})
-    >>> o.items()
-    [('clean', True)]
 
     And like a class
 
@@ -115,6 +105,7 @@ class EasyDict(dict):
         if kwargs:
             d.update(**kwargs)
         for k, v in d.items():
+            # setattr(self,k,v)
             setattr(self, str(k), v)
         # Class attributes
         for k in self.__class__.__dict__.keys():
@@ -146,3 +137,7 @@ class EasyDict(dict):
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
+
+    test1 = {1:3,4:5}
+    # assert EasyDict(test1) == {"1":3,"4":5}
+
