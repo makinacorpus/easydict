@@ -54,13 +54,13 @@ class EasyDict(dict):
     >>> isinstance(d.bar, list)
     True
     >>> from operator import attrgetter
-    >>> map(attrgetter('x'), d.bar)
+    >>> [*map(attrgetter('x'), d.bar)]
     [1, 3]
-    >>> map(attrgetter('y'), d.bar)
+    >>> [*map(attrgetter('y'), d.bar)]
     [2, 4]
     >>> d = EasyDict()
     >>> d.keys()
-    []
+    dict_keys([])
     >>> d = EasyDict(foo=3, bar=dict(x=1, y=2))
     >>> d.foo
     3
@@ -71,7 +71,7 @@ class EasyDict(dict):
 
     >>> o = EasyDict({'clean':True})
     >>> o.items()
-    [('clean', True)]
+    dict_items([('clean', True)])
 
     And like a class
 
