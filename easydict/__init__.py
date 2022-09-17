@@ -112,6 +112,8 @@ class EasyDict(dict):
     def __init__(self, d=None, **kwargs):
         if d is None:
             d = {}
+        else:
+            d = dict(d)        
         if kwargs:
             d.update(**kwargs)
         for k, v in d.items():
