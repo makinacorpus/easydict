@@ -5,8 +5,9 @@ CHANGELOG
 1.10 (unreleased)
 =================
 
-- Nothing changed yet.
-
+* Make tests compatible with python2 and python3 (thanks @JackLangerman)
+* Dictify input
+* Fix license metadata 
 
 1.9 (2018-10-18)
 ================
