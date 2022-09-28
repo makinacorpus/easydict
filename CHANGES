@@ -2,7 +2,7 @@
 CHANGELOG
 =========
 
-1.10 (unreleased)
+1.10 (2022-09-28)
 =================
 
 * Make tests compatible with python2 and python3 (thanks @JackLangerman)
