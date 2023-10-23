@@ -79,17 +79,24 @@ class EasyDict(dict):
 
     >>> class Flower(EasyDict):
     ...     power = 1
+    ...     mean = {}
+    ...     color = {"r": 100, "g": 0, "b": 0}
     ...
     >>> f = Flower()
     >>> f.power
     1
+    >>> f.color.r
+    100
+    >>> f.mean.x = 10
+    >>> f.mean.x
+    10
     >>> f = Flower({'height': 12})
     >>> f.height
     12
     >>> f['power']
     1
     >>> sorted(f.keys())
-    ['height', 'power']
+    ['color', 'height', 'mean', 'power']
 
     update and pop items
     >>> d = EasyDict(a=1, b='2')
@@ -129,8 +136,8 @@ class EasyDict(dict):
         if isinstance(value, (list, tuple)):
             value = [self.__class__(x)
                      if isinstance(x, dict) else x for x in value]
-        elif isinstance(value, dict) and not isinstance(value, self.__class__):
-            value = self.__class__(value)
+        elif isinstance(value, dict) and not isinstance(value, EasyDict):
+            value = EasyDict(value)
         super(EasyDict, self).__setattr__(name, value)
         super(EasyDict, self).__setitem__(name, value)
 
