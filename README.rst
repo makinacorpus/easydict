@@ -4,15 +4,15 @@
 .. image:: https://img.shields.io/pypi/dm/easydict.svg
         :target: https://pypi.python.org/pypi/easydict
 
-=====
+========
 Easydict
-=====
+========
 
 *EasyDict* allows to access dict values as attributes (works recursively). 
 A Javascript-like properties dot notation for python dicts.
 
 INSTALL
-=====
+=======
 
 ::
     
