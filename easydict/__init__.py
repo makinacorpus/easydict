@@ -134,8 +134,8 @@ class EasyDict(dict):
 
     def __setattr__(self, name, value):
         if isinstance(value, (list, tuple)):
-            value = [self.__class__(x)
-                     if isinstance(x, dict) else x for x in value]
+            value = type(value)(self.__class__(x)
+                     if isinstance(x, dict) else x for x in value)
         elif isinstance(value, dict) and not isinstance(value, EasyDict):
             value = EasyDict(value)
         super(EasyDict, self).__setattr__(name, value)
