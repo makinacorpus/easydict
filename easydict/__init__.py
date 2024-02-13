@@ -48,6 +48,12 @@ class EasyDict(dict):
     >>> d.bar.prop = 'newer'
     >>> d.bar.prop
     'newer'
+    >>> d.lst = [1, 2, 3]
+    >>> d.lst
+    [1, 2, 3]
+    >>> d.tpl = (1, 2, 3)
+    >>> d.tpl
+    (1, 2, 3)
 
 
     Values extraction
