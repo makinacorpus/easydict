@@ -123,6 +123,12 @@ class EasyDict(dict):
     Traceback (most recent call last):
     ...
     AttributeError: 'EasyDict' object has no attribute 'a'
+    >>> d.pop('a', 8)
+    8
+    >>> d.pop('b', 100)
+    4
+    >>> d
+    {'c': 3.0}
     """
     def __init__(self, d=None, **kwargs):
         if d is None:
@@ -155,9 +161,10 @@ class EasyDict(dict):
         for k in d:
             setattr(self, k, d[k])
 
-    def pop(self, k, d=None):
-        delattr(self, k)
-        return super(EasyDict, self).pop(k, d)
+    def pop(self, k, *args):
+        if hasattr(self, k):
+            delattr(self, k)
+        return super(EasyDict, self).pop(k, *args)
 
 
 if __name__ == "__main__":
