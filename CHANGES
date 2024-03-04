@@ -2,6 +2,11 @@
 CHANGELOG
 =========
 
+1.12 (2024-03-04)
+=================
+
+- Fix #46: Fix handling of optional default value for .pop() (#47)
+
 1.12 (2024-02-13)
 =================
 
