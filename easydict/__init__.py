@@ -129,6 +129,40 @@ class EasyDict(dict):
     4
     >>> d
     {'c': 3.0}
+
+    Set defaults through attributes, including nested mappings
+
+    >>> d = EasyDict()
+    >>> d.setdefault('count', 2)
+    2
+    >>> d.count
+    2
+    >>> settings = d.setdefault('settings', {'enabled': True})
+    >>> settings is d.settings
+    True
+    >>> settings.enabled
+    True
+    >>> d.setdefault('count', 9)
+    2
+    >>> d.count
+    2
+    >>> d.setdefault('optional') is None
+    True
+    >>> d.optional is None
+    True
+    >>> sorted(d)
+    ['count', 'optional', 'settings']
+
+    Keys that cannot be ordinary attributes remain dictionary entries
+
+    >>> for key in (1, None, ('item',), '__class__', '__dict__', '__weakref__'):
+    ...     d = EasyDict()
+    ...     value = {'enabled': True}
+    ...     assert d.setdefault(key, value) is value
+    ...     assert d[key] is value
+    ...     assert d.setdefault(key, 'replacement') is value
+    ...     assert type(d) is EasyDict
+    ...     assert vars(d) == {}
     """
     def __init__(self, d=None, **kwargs):
         if d is None:
@@ -141,7 +175,7 @@ class EasyDict(dict):
             setattr(self, k, v)
         # Class attributes
         for k in self.__class__.__dict__.keys():
-            if not (k.startswith('__') and k.endswith('__')) and k not in ('update', 'pop'):
+            if not (k.startswith('__') and k.endswith('__')) and k not in ('update', 'pop', 'setdefault'):
                 setattr(self, k, getattr(self, k))
 
     def __setattr__(self, name, value):
@@ -160,6 +194,13 @@ class EasyDict(dict):
         d.update(f)
         for k in d:
             setattr(self, k, d[k])
+
+    def setdefault(self, key, default=None):
+        if not isinstance(key, str) or (key.startswith('__') and key.endswith('__')):
+            return dict.setdefault(self, key, default)
+        if key not in self:
+            self[key] = default
+        return self[key]
 
     def pop(self, k, *args):
         if hasattr(self, k):
