@@ -205,7 +205,7 @@ class EasyDict(dict):
         for k, v in d.items():
             setattr(self, k, v)
         # Class attributes
-        for k in self.__class__.__dict__.keys():
+        for k in self.__class__.__dict__:
             if not (k.startswith('__') and k.endswith('__')) and k not in ('update', 'pop', 'setdefault'):
                 setattr(self, k, getattr(self, k))
 
@@ -215,8 +215,8 @@ class EasyDict(dict):
                      if isinstance(x, dict) else x for x in value)
         elif type(value) == dict and not isinstance(value, EasyDict):
             value = EasyDict(value)
-        super(EasyDict, self).__setattr__(name, value)
-        super(EasyDict, self).__setitem__(name, value)
+        super().__setattr__(name, value)
+        super().__setitem__(name, value)
 
     __setitem__ = __setattr__
 
@@ -236,7 +236,7 @@ class EasyDict(dict):
     def pop(self, k, *args):
         if hasattr(self, k):
             delattr(self, k)
-        return super(EasyDict, self).pop(k, *args)
+        return super().pop(k, *args)
 
 
 if __name__ == "__main__":
