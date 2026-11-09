@@ -1,8 +1,8 @@
 [project]
 name = "easydict"
-version = "1.13"
-description = "Access dict values as attributes (works recursively)."
+dynamic = ["version"]
 readme = "README.rst"
+description = "Access dict values as attributes (works recursively)."
 license = "LGPL-3.0-only"
 license-files = ["LICENSE"]
 authors = [
@@ -27,6 +27,9 @@ Changelog = "https://github.com/makinacorpus/easydict/releases/"
 [tool.setuptools]
 packages = ["easydict"]
 
+[tool.setuptools_scm]
+# presence enables setuptools_scm (version from git tags)
+
 [build-system]
-requires = ["setuptools>=77"]
+requires = ["setuptools>=77", "setuptools_scm>=8"]
 build-backend = "setuptools.build_meta"
