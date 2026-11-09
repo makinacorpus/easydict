@@ -163,6 +163,14 @@ class EasyDict(dict):
     ...     assert d.setdefault(key, 'replacement') is value
     ...     assert type(d) is EasyDict
     ...     assert vars(d) == {}
+
+    update does not mutate its argument
+
+    >>> src = {'a': 1}
+    >>> d = EasyDict()
+    >>> d.update(src, b=2)
+    >>> src == {'a': 1}
+    True
     """
     def __init__(self, d=None, **kwargs):
         if d is None:
@@ -190,7 +198,7 @@ class EasyDict(dict):
     __setitem__ = __setattr__
 
     def update(self, e=None, **f):
-        d = e or dict()
+        d = dict(e) if e else {}
         d.update(f)
         for k in d:
             setattr(self, k, d[k])
