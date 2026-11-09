@@ -2,7 +2,19 @@
 CHANGELOG
 =========
 
-1.12 (2024-03-04)
+1.14 (2026-11-09)
+=================
+
+**Breaking changes**
+
+- Sub-classes of ``list``, ``dict`` and ``tuple`` are no longer automatically converted (#51)
+
+**Bug fixes**
+
+- Fix ``update()`` mutating its positional argument (#54)
+- Fix ``setdefault()`` not synchronizing attributes (#53)
+
+1.13 (2024-03-04)
 =================
 
 - Fix #46: Fix handling of optional default value for .pop() (#47)
@@ -23,7 +35,7 @@ CHANGELOG
 
 * Make tests compatible with python2 and python3 (thanks @JackLangerman)
 * Dictify input
-* Fix license metadata 
+* Fix license metadata
 
 1.9 (2018-10-18)
 ================
