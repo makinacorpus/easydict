@@ -54,7 +54,30 @@ class EasyDict(dict):
     >>> d.tpl = (1, 2, 3)
     >>> d.tpl
     (1, 2, 3)
+    >>> d.lst = [{'a': 1}, {'b': 2}]
+    >>> type(d.lst).__name__, type(d.lst[0]).__name__, d.lst[0].a, d.lst[1].b
+    ('list', 'EasyDict', 1, 2)
+    >>> d.tpl = ({'a': 1}, {'b': 2})
+    >>> type(d.tpl).__name__, type(d.tpl[0]).__name__, d.tpl[0].a, d.tpl[1].b
+    ('tuple', 'EasyDict', 1, 2)
 
+    Subclasses of list, tuple and dict are left untouched
+
+    >>> class CustomList(list): pass
+    >>> class CustomTuple(tuple): pass
+    >>> class CustomDict(dict): pass
+    >>> d = EasyDict()
+    >>> d.lst = CustomList([{'a': 1}])
+    >>> type(d.lst).__name__, type(d.lst[0]).__name__
+    ('CustomList', 'dict')
+    >>> d.tpl = CustomTuple(({'a': 1},))
+    >>> type(d.tpl).__name__, type(d.tpl[0]).__name__
+    ('CustomTuple', 'dict')
+    >>> d.dct = CustomDict({'key': 'value'})
+    >>> type(d.dct).__name__
+    'CustomDict'
+    >>> d.dct == {'key': 'value'}
+    True
 
     Values extraction
 
