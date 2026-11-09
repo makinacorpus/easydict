@@ -1,9 +1,15 @@
 #!/usr/bin/python
-# -*- coding: utf8 -*-
 import os
-from setuptools import setup, find_packages
+
+from setuptools import find_packages, setup
 
 here = os.path.abspath(os.path.dirname(__file__))
+
+long_desc = ""
+with open(os.path.join(here, 'README.rst')) as f:
+    long_desc += f.read() + '\n\n'
+with open(os.path.join(here, 'CHANGES')) as f:
+    long_desc += f.read()
 
 setup(
     name='easydict',
@@ -13,15 +19,14 @@ setup(
     url='https://github.com/makinacorpus/easydict',
     download_url="http://pypi.python.org/pypi/easydict/",
     description="Access dict values as attributes (works recursively).",
-    long_description=open(os.path.join(here, 'README.rst')).read() + '\n\n' +
-                     open(os.path.join(here, 'CHANGES')).read(),
+    long_description=long_desc,
     license='LGPL-3.0',
     install_requires=[],
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
     keywords=['Tools'],
-    classifiers=['Topic :: Utilities', 
+    classifiers=['Topic :: Utilities',
                  'Natural Language :: English',
                  'Operating System :: OS Independent',
                  'Intended Audience :: Developers',
