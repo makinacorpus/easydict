@@ -2,3 +2,5 @@
 /build/
 /dist/
 easydict.egg-info/
+.ruff_cache
+__pycache__

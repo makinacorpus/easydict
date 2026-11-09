@@ -1,0 +1,32 @@
+[project]
+name = "easydict"
+version = "1.13"
+description = "Access dict values as attributes (works recursively)."
+readme = "README.rst"
+license = "LGPL-3.0-only"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Mathieu Leplatre", email = "mathieu.leplatre@makina-corpus.com" },
+]
+keywords = ["Tools"]
+classifiers = [
+    "Topic :: Utilities",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python :: 3",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/makinacorpus/easydict"
+Download = "https://pypi.org/project/easydict/"
+Changelog = "https://github.com/makinacorpus/easydict/releases/"
+
+[tool.setuptools]
+packages = ["easydict"]
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
