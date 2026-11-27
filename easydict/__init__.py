@@ -194,6 +194,24 @@ class EasyDict(dict):
     >>> d.update(src, b=2)
     >>> src == {'a': 1}
     True
+
+    Non-string keys keep nested conversions without setting attributes
+
+    >>> d = EasyDict({('Lon', 'Arn'): {'a': 1, 'b': 2}, ('Lon', 'Gou'): {'a': 3, 'b': 4}})
+    >>> d[('Lon', 'Arn')].a, d[('Lon', 'Gou')].b
+    (1, 4)
+    >>> d[1] = {'nested': [{'x': 5}]}
+    >>> d[1].nested[0].x
+    5
+    >>> d.update({None: {'flag': True}})
+    >>> d[None].flag
+    True
+    >>> d.pop(1)
+    {'nested': [{'x': 5}]}
+    >>> d.pop(999, 'missing')
+    'missing'
+    >>> vars(d)
+    {}
     """
     def __init__(self, d=None, **kwargs):
         if d is None:
@@ -203,7 +221,7 @@ class EasyDict(dict):
         if kwargs:
             d.update(**kwargs)
         for k, v in d.items():
-            setattr(self, k, v)
+            self[k] = v
         # Class attributes
         for k in self.__class__.__dict__:
             if not (k.startswith('__') and k.endswith('__')) and k not in ('update', 'pop', 'setdefault'):
@@ -215,7 +233,8 @@ class EasyDict(dict):
                      if isinstance(x, dict) else x for x in value)
         elif type(value) == dict and not isinstance(value, EasyDict):
             value = EasyDict(value)
-        super().__setattr__(name, value)
+        if isinstance(name, str):
+            super().__setattr__(name, value)
         super().__setitem__(name, value)
 
     __setitem__ = __setattr__
@@ -224,7 +243,7 @@ class EasyDict(dict):
         d = dict(e) if e else {}
         d.update(f)
         for k in d:
-            setattr(self, k, d[k])
+            self[k] = d[k]
 
     def setdefault(self, key, default=None):
         if not isinstance(key, str) or (key.startswith('__') and key.endswith('__')):
@@ -234,7 +253,7 @@ class EasyDict(dict):
         return self[key]
 
     def pop(self, k, *args):
-        if hasattr(self, k):
+        if isinstance(k, str) and k in getattr(self, '__dict__', ()):
             delattr(self, k)
         return super().pop(k, *args)
 
