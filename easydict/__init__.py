@@ -1,3 +1,33 @@
+from contextlib import contextmanager
+from contextvars import ContextVar
+
+_conversion_memo = ContextVar("_conversion_memo", default=None)
+
+
+@contextmanager
+def _memo_scope(source=None, target=None):
+    memo = _conversion_memo.get()
+    token = None
+    if memo is None:
+        memo = {}
+        token = _conversion_memo.set(memo)
+    if isinstance(source, dict) and target is not None:
+        memo[id(source)] = (source, target)
+    try:
+        yield memo
+    finally:
+        if token is not None:
+            _conversion_memo.reset(token)
+
+
+def _convert_seq_item(x, cls, memo):
+    if isinstance(x, (dict, list)) and id(x) in memo:
+        return memo[id(x)][1]
+    if isinstance(x, dict):
+        return cls(x)
+    return x
+
+
 class EasyDict(dict):
     """
     Get attributes
@@ -194,37 +224,88 @@ class EasyDict(dict):
     >>> d.update(src, b=2)
     >>> src == {'a': 1}
     True
+
+    Self-referencing and cyclic structures preserve references
+
+    >>> A = {}
+    >>> A['b'] = A
+    >>> ed = EasyDict(A)
+    >>> ed.b is ed and ed['b'] is ed
+    True
+    >>> B = {'a': A}
+    >>> A['b'] = B
+    >>> ed = EasyDict(A)
+    >>> ed.b.a is ed
+    True
+    >>> T = {}
+    >>> T['tup'] = (T,)
+    >>> ed = EasyDict(T)
+    >>> ed.tup[0] is ed
+    True
+    >>> cycle_list = []
+    >>> cycle_list.append({'self_list': cycle_list})
+    >>> ed = EasyDict({'items': cycle_list})
+    >>> ed.items[0].self_list is ed.items
+    True
+    >>> pairs = []
+    >>> pairs.append(('items', pairs))
+    >>> ed_pairs = EasyDict(pairs)
+    >>> isinstance(ed_pairs.items, list)
+    True
+    >>> d = EasyDict({'existing': 99})
+    >>> d.update(A)
+    >>> d.b.a.b is d.b and 'existing' not in d.b.a
+    True
+    >>> class _Dyn:
+    ...     def __init__(self, v): self.v = v
+    ...     def __get__(self, obj, cls=None): return {'v': self.v}
+    >>> class _Cfg(EasyDict):
+    ...     p1 = _Dyn(1)
+    ...     p2 = _Dyn(2)
+    >>> cfg = _Cfg()
+    >>> cfg.p1.v, cfg.p2.v
+    (1, 2)
     """
     def __init__(self, d=None, **kwargs):
-        if d is None:
-            d = {}
-        else:
-            d = dict(d)        
-        if kwargs:
-            d.update(**kwargs)
-        for k, v in d.items():
-            setattr(self, k, v)
-        # Class attributes
-        for k in self.__class__.__dict__:
-            if not (k.startswith('__') and k.endswith('__')) and k not in ('update', 'pop', 'setdefault'):
-                setattr(self, k, getattr(self, k))
+        with _memo_scope(d if not kwargs else None, self):
+            if d is None:
+                d = {}
+            else:
+                d = dict(d)
+            if kwargs:
+                d.update(**kwargs)
+            for k, v in d.items():
+                setattr(self, k, v)
+            # Class attributes
+            for k in self.__class__.__dict__:
+                if not (k.startswith('__') and k.endswith('__')) and k not in ('update', 'pop', 'setdefault'):
+                    setattr(self, k, getattr(self, k))
 
     def __setattr__(self, name, value):
-        if type(value) in (list, tuple):
-            value = type(value)(self.__class__(x)
-                     if isinstance(x, dict) else x for x in value)
-        elif type(value) == dict and not isinstance(value, EasyDict):
-            value = EasyDict(value)
+        with _memo_scope() as memo:
+            if type(value) is list:
+                if id(value) in memo:
+                    value = memo[id(value)][1]
+                else:
+                    converted = []
+                    memo[id(value)] = (value, converted)
+                    converted.extend(_convert_seq_item(x, self.__class__, memo) for x in value)
+                    value = converted
+            elif type(value) is tuple:
+                value = tuple(_convert_seq_item(x, self.__class__, memo) for x in value)
+            elif type(value) == dict and not isinstance(value, EasyDict):
+                value = memo[id(value)][1] if id(value) in memo else EasyDict(value)
         super().__setattr__(name, value)
         super().__setitem__(name, value)
 
     __setitem__ = __setattr__
 
     def update(self, e=None, **f):
-        d = dict(e) if e else {}
-        d.update(f)
-        for k in d:
-            setattr(self, k, d[k])
+        with _memo_scope():
+            d = dict(e) if e else {}
+            d.update(f)
+            for k in d:
+                setattr(self, k, d[k])
 
     def setdefault(self, key, default=None):
         if not isinstance(key, str) or (key.startswith('__') and key.endswith('__')):
